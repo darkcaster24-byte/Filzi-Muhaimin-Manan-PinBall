@@ -7,7 +7,7 @@ public class CoinController : MonoBehaviour
     public float timeSpawn;
 
     private GameObject spawnAreaCoin;
-    public float timer;
+    private float timer;
 
     private void Start()
     {
