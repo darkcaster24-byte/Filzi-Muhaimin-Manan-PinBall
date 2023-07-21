@@ -8,7 +8,9 @@ public class BumperController : MonoBehaviour
     // menyimpan variabel bola sebagai referensi untuk pengecekan
 	public Collider bola;
     public float multiplier;
-    public Color color;
+    public Color colorOne, colorTwo, colorThree;
+    public bool colorOneOn, colorTwoOn, colorThreeOn;
+
     private new Renderer renderer;
     private Animator animator;
 	
@@ -17,7 +19,8 @@ public class BumperController : MonoBehaviour
         renderer = GetComponent<Renderer>();
         
         animator = GetComponent<Animator>();
-        renderer.material.color = color;
+        renderer.material.color = colorOne;
+        colorOneOn = true;
     }
 
 	private void OnCollisionEnter(Collision collision)
@@ -29,7 +32,30 @@ public class BumperController : MonoBehaviour
             bolaRig.velocity *= multiplier;
             
             animator.SetTrigger("hit");
+            ChangeColorBumper();
         }
 	}
+
+    private void ChangeColorBumper()
+    {
+        if (colorOneOn == true)
+        {
+            colorOneOn = false;
+            colorTwoOn = true;
+            renderer.material.color = colorTwo;
+        }
+        else if (colorTwoOn == true)
+        {
+            colorTwoOn = false;
+            colorThreeOn = true;
+            renderer.material.color = colorThree;
+        }
+        else
+        {
+            colorThreeOn = false;
+            colorOneOn = true;
+            renderer.material.color = colorOne;
+        }
+    }
     
 }

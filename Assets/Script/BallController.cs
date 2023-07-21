@@ -8,10 +8,12 @@ public class BallController : MonoBehaviour
 	public float maxSpeed;
 
     private Rigidbody rig;
+    private GameObject spawnPoint;
 
     private void Start()
     {
         rig = GetComponent<Rigidbody>();
+        spawnPoint = GameObject.FindGameObjectWithTag("SpawnPointBall");
     }
 
     private void Update()
@@ -22,5 +24,13 @@ public class BallController : MonoBehaviour
                 // kalau melebihi buat vector velocity baru dengan besaran max speed
         rig.velocity = rig.velocity.normalized * maxSpeed;
         }
-  }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Finish")
+        {
+            gameObject.transform.position = spawnPoint.transform.position;
+        }
+    }
 }
